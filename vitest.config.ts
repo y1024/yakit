@@ -50,16 +50,41 @@ export default defineConfig({
     },
   ],
   resolve: {
-    alias: {
-      '@renderer': path.resolve(__dirname, 'app/renderer/src/main/src'),
-      '@engne': path.resolve(__dirname, 'app/renderer/engine-link-startup/src'),
-      '@engine': path.resolve(__dirname, 'app/renderer/engine-link-startup/src'),
-      '@app': path.resolve(__dirname, 'app'),
-    },
+    alias: [
+      {
+        find: 'monaco-editor/esm/vs/editor/editor.api',
+        replacement: path.resolve(__dirname, 'app/renderer/src/main/src/test/mocks/monaco-editor.ts'),
+      },
+      {
+        find: 'monaco-editor',
+        replacement: path.resolve(__dirname, 'app/renderer/src/main/src/test/mocks/monaco-editor.ts'),
+      },
+      {
+        find: 'react-monaco-editor',
+        replacement: path.resolve(__dirname, 'app/renderer/src/main/src/test/mocks/react-monaco-editor.tsx'),
+      },
+      {
+        find: '@renderer',
+        replacement: path.resolve(__dirname, 'app/renderer/src/main/src'),
+      },
+      {
+        find: '@engne',
+        replacement: path.resolve(__dirname, 'app/renderer/engine-link-startup/src'),
+      },
+      {
+        find: '@engine',
+        replacement: path.resolve(__dirname, 'app/renderer/engine-link-startup/src'),
+      },
+      {
+        find: '@app',
+        replacement: path.resolve(__dirname, 'app'),
+      },
+    ],
   },
   test: {
     environment: 'jsdom',
     globals: true,
+    css: false,
     // run from repo root
     root: path.resolve(__dirname),
     // run renderer setup to register testing-library matchers
